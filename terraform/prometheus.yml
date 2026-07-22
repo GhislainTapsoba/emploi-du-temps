@@ -1,0 +1,8 @@
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: 'emploi-du-temps-app'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['emploi-du-temps-app-tf:8080']
