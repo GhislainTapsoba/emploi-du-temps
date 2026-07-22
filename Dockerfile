@@ -14,11 +14,14 @@ COPY src ./src
 RUN ./mvnw clean package -DskipTests -B
 
 # ---------- Stage 2 : Run ----------
+# ---------- Stage 2 : Run ----------
 FROM eclipse-temurin:21-jre-alpine
+
+# Met à jour les packages système pour corriger les CVE connues
+RUN apk update && apk upgrade --no-cache
 
 WORKDIR /app
 
-# Copie uniquement le jar généré depuis le stage précédent
 COPY --from=build /app/target/*.jar app.jar
 
 EXPOSE 8080
